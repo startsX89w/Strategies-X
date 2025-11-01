@@ -91,38 +91,9 @@ local appendlog = function(...)
         return AppendFile(true,game:GetService("Players").LocalPlayer.Name.."'s log","StrategiesX/UserLogs",tostring(Text).."\n")
     end)
 end
-local LinkTable = {
-    "https://raw.githubusercontent.com/banbuskox/dfhtyxvzexrxgfdzgzfdvfdz/main/ckmhjvskfkmsStratFun2",
-    "https://raw.githubusercontent.com/wxzex/mmsautostratcontinuation/main/autostratscode.txt"
-}
 
-local OldNamecall
-OldNamecall = hookmetamethod(game, '__namecall', function(...)
-    local Self, Args = (...), ({select(2, ...)})
-    if getnamecallmethod() == 'HttpGet' then
-        if table.find(LinkTable, Args[1]) then
-            Args[1] = "https://raw.githubusercontent.com/Sigmanic/Strategies-X/main/MainSource.lua"
-            appendlog("Hooked AutoStrat Main Library Using hookmetamethod")
-        --[[elseif Args[1] == "https://raw.githubusercontent.com/banbuskox/dfhtyxvzexrxgfdzgzfdvfdz/main/asjhxnjfdStratFunJoin" then
-            Args[1] = "https://raw.githubusercontent.com/Sigmanic/Strategies-X/main/CustomJoiningElevators.lua"
-            appendlog("Hooked AutoStrat Joining Library Using hookmetamethod")]]
-        end
-    elseif getnamecallmethod() == 'Kick' then
-        wait(math.huge)
-    end
-    return OldNamecall(...,unpack(Args))
-end)
-local OldHook
-OldHook = hookfunction(game.HttpGet, function(Self, Url, ...)
-    --if Url == "https://raw.githubusercontent.com/banbuskox/dfhtyxvzexrxgfdzgzfdvfdz/main/ckmhjvskfkmsStratFun2" then
-    if table.find(LinkTable, Url) then
-        Url = "https://raw.githubusercontent.com/Sigmanic/Strategies-X/main/MainSource.lua"
-        appendlog("Hooked AutoStrat Main Library Using hookfunction")
-    --[[elseif Url == "https://raw.githubusercontent.com/banbuskox/dfhtyxvzexrxgfdzgzfdvfdz/main/asjhxnjfdStratFunJoin" then
-        Url = "https://raw.githubusercontent.com/Sigmanic/Strategies-X/main/CustomJoiningElevators.lua"
-        appendlog("Hooked AutoStrat Joining Library Using hookfunction")]]
-    end
-    return OldHook(Self, Url, ...)
-end)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/startsX89w/Strategies-X/refs/heads/main/TDS/MainSource.lua"))()
+appendlog("Hooked AutoStrat Main Library Using loadstring")
+
 getgenv().StrategiesXLoader = true
 appendlog("Strategies X Loader Loaded: "..tostring(os.clock() - OldTime))
